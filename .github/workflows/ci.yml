@@ -24,6 +24,7 @@ jobs:
 
   publish:
     runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && !github.event_name == 'pull_request'
     needs: checks
     environment: release  # Optional: for enhanced security
     permissions:
