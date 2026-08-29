@@ -2,5 +2,13 @@
 name = "onepassword-sdk"
 version = "0.1.0"
 edition = "2024"
+description = "An unofficial Rust SDK for the 1Password Developer API"
+license = "Apache-2.0"
+repository = "https://github.com/SeradedStripes/1Password-Rust-SDK"
+rust-version = "1.95.0"
 
 [dependencies]
+
+[lints.rust]
+unsafe_code = "forbid"
+missing_docs = "deny"

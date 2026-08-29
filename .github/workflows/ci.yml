@@ -3,17 +3,20 @@ on:
   push:
     branches:
       - main
+  pull_request:
 
 jobs:
   checks:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Install Rust
-        uses: actions-rs/toolchain@v1
+        uses: dtolnay/rust-toolchain@stable
         with:
-          toolchain: stable
-          override: true
+          components: clippy, rustfmt
+      - uses: Swatinem/rust-cache@v2
+      - name: Check Formatting
+        run: cargo fmt --all -- --check
       - name: Run Clippy
         run: cargo clippy --all-targets --all-features -- -D warnings
       - name: Run Tests
@@ -26,7 +29,7 @@ jobs:
     permissions:
       id-token: write     # Required for OIDC token exchange
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: rust-lang/crates-io-auth-action@v1
         id: auth
       - run: cargo publish
